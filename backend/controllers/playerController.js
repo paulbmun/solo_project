@@ -1,31 +1,59 @@
 const asyncHandler = require('express-async-handler')
+const Player = require('../models/playerModel')
 
-const getPlayers = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Get player' })
+const getPlayer = asyncHandler(async (req, res) => {
+const player = await Player.find()
+
+  res.status(200).json(player)
 })
 
-const setPlayers = asyncHandler(async (req, res) => {
-  console.log(req.body)
+const setPlayer = asyncHandler(async (req, res) => {
+  // console.log(req.body)
 
   if (!req.body.text) {
     res.status(400)
     throw new Error('Please add a player field')
   }
 
-  res.status(200).json({ message: 'Set player' })
+  const player = await Player.create({
+    text: req.body.text
+  })
+
+  res.status(200).json(player)
 })
 
-const updatePlayers = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update player ${req.params.id}` })
+const updatePlayer = asyncHandler(async (req, res) => {
+  const player = await Player.findById(req.params.id)
+
+  if(!player) {
+    res.status(400)
+    throw new Error('Player not found')
+  }
+
+  const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  })
+
+  res.status(200).json(updatedPlayer)
 })
 
-const deletePlayers = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete player ${req.params.id}` })
+const deletePlayer = asyncHandler(async (req, res) => {
+  const player = await Player.findById(req.params.id)
+  console.log(player)
+
+  if(!player) {
+    res.status(400)
+    throw new Error('Player not found')
+  }
+
+  await Player.deleteOne({ _id: player._id })
+
+  res.status(200).json({ id: req.params.id })
 })
 
 module.exports = {
-  getPlayers,
-  setPlayers,
-  updatePlayers,
-  deletePlayers,
+  getPlayer,
+  setPlayer,
+  updatePlayer,
+  deletePlayer,
 }

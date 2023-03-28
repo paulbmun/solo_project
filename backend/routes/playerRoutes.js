@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { getPlayers, setPlayers, updatePlayers, deletePlayers } = require('../controllers/playerController')
+const { getPlayer, setPlayer, updatePlayer, deletePlayer } = require('../controllers/playerController')
 
-router.route('/').get(getPlayers).post(setPlayers)
-router.route('/:id').put(updatePlayers).delete(deletePlayers)
+router.route('/').get(getPlayer).post(setPlayer)
+router.route('/:id').put(updatePlayer).delete(deletePlayer)
 
 module.exports = router
