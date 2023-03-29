@@ -1,8 +1,10 @@
 const asyncHandler = require('express-async-handler')
+
 const Player = require('../models/playerModel')
+const User = require('../models/userModel')
 
 const getPlayer = asyncHandler(async (req, res) => {
-const player = await Player.find()
+const player = await Player.find({ user: req.user.id })
 
   res.status(200).json(player)
 })
@@ -10,13 +12,14 @@ const player = await Player.find()
 const setPlayer = asyncHandler(async (req, res) => {
   // console.log(req.body)
 
-  if (!req.body.text) {
+  if (!req.body.name) {
     res.status(400)
     throw new Error('Please add a player field')
   }
 
   const player = await Player.create({
-    text: req.body.text
+    name: req.body.name,
+    user: req.user.id
   })
 
   res.status(200).json(player)
@@ -28,6 +31,18 @@ const updatePlayer = asyncHandler(async (req, res) => {
   if(!player) {
     res.status(400)
     throw new Error('Player not found')
+  }
+
+  const user = await User.findById(req.user.id)
+
+  if(!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  if(player.user.toString() !== user.id) {
+    res.status(401)
+    throw new Error('User not authorized')
   }
 
   const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body, {
@@ -44,6 +59,18 @@ const deletePlayer = asyncHandler(async (req, res) => {
   if(!player) {
     res.status(400)
     throw new Error('Player not found')
+  }
+
+  const user = await User.findById(req.user.id)
+
+  if(!user) {
+    res.status(401)
+    throw new Error('User not found')
+  }
+
+  if(player.user.toString() !== user.id) {
+    res.status(401)
+    throw new Error('User not authorized')
   }
 
   await Player.deleteOne({ _id: player._id })

@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const { getPlayer, setPlayer, updatePlayer, deletePlayer } = require('../controllers/playerController')
 
-router.route('/').get(getPlayer).post(setPlayer)
-router.route('/:id').put(updatePlayer).delete(deletePlayer)
+const {protect} = require('../middleware/authMiddleware')
+
+router.route('/').get(protect, getPlayer).post(protect, setPlayer)
+router.route('/:id').put(protect, updatePlayer).delete(protect, deletePlayer)
 
 module.exports = router
