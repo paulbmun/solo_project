@@ -11,31 +11,34 @@ module.exports = {
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: '[name][contenthash].js',
-    clean: true,
-    assetModuleFilename: '[name][ext]',
+    filename: 'bundle.js', //bundle.js?
+    publicPath: '/', //not sure if needed
+    // clean: true,
+    // assetModuleFilename: '[name][ext]',
   },
-  devtool: 'source-map',
-  target: 'web',
+  // devtool: 'eval-source-map',
+  // target: 'web',  //?
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist')
+      directory: path.resolve(__dirname, './dist'),
+      publicPath: '/', //not sure if needed
     },
+    host: 'localhost',
     port: 4000,
-    open: true,
-    hot: true,
-    liveReload: true,
-    compress: true,
+    // open: true, //?
+    // hot: true,
+    // liveReload: true, //?
+    // compress: true, //?
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '*'],
   },
   module: {
     rules: [
       {
         test:/\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
       },
       {
         test: /\.(js|jsx)$/,
@@ -43,12 +46,13 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env', "@babel/preset-react"]
           }
         }
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        loader: 'file-loader',
         type: 'asset/resource'
       }
     ],
