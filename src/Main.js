@@ -1,8 +1,14 @@
-import React from "react"
+import React, {useState} from "react"
 import PlayerCard from "./PlayerCard"
 import PlayerImage from './PlayerImage'
 
 const Main = ({player, getPlayer}) => {
+  const [selectedPlayers, setSelectedPlayers] = useState([])
+
+  const addPlayer = (player) => {
+    setSelectedPlayers([...selectedPlayers, player])
+  }
+
   return (
     <main>
       <PlayerCard 

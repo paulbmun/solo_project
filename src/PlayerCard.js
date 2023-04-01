@@ -5,7 +5,7 @@ import PlayerImage from './PlayerImage'
 
 
 const PlayerCard = ({player, getPlayer}) => {
-  console.log('PlayerCard', playerData)
+  // console.log('PlayerCard', playerData)
 
   const [data, getData] = useState({
     name: '',

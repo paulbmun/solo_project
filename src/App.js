@@ -1,9 +1,9 @@
-import React from "react"
+import React, {useState} from "react"
 import Header from "./Header"
 import Main from "./Main"
-import {useState} from 'react'
+import "./styles/style.css"
 
-const App = (props) => {
+const App = () => {
 
   const [player, getPlayer] = useState([{name: '', team: ''}]);
 

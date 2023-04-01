@@ -1,11 +1,12 @@
 import React from 'react'
 import playerData from './playerData'
 
+
 const PlayerImage = ({player, getPlayer}) => {
 
   const playerExists = () => {
     const foundPlayer = playerData.find(
-      el => `${el.first_name} ${el.last_name}` === player[0].name && el.team === player[0].team
+      el => el.fullName === player[0].name && el.team === player[0].team
     )
     if (foundPlayer) {
       return (

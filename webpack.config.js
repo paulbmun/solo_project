@@ -5,19 +5,12 @@ const bundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
   mode: 'development',
-  // entry: {
-  //   bundle: path.resolve(__dirname, './src/index.js')
-  // },
   entry: './index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js', //bundle.js?
     publicPath: '/', //not sure if needed
-    // clean: true,
-    // assetModuleFilename: '[name][ext]',
   },
-  // devtool: 'eval-source-map',
-  // target: 'web',  //?
   devServer: {
     static: {
       directory: path.resolve(__dirname, './dist'),
@@ -25,10 +18,6 @@ module.exports = {
     },
     host: 'localhost',
     port: 4000,
-    // open: true, //?
-    // hot: true,
-    // liveReload: true, //?
-    // compress: true, //?
     historyApiFallback: true,
   },
   resolve: {
@@ -59,10 +48,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // title: 'Webpack App',
-      // filename: './public/index.html',
       template: './public/index.html',
     }),
-    // new BundleAnalyzerPlugin(),
   ],
 }
