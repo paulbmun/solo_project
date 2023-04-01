@@ -22,19 +22,7 @@ const PlayerCard = ({player, getPlayer}) => {
       name: '',
       team: '',
     })
-
-    // getPlayer(()=>{
-    //   const list = [data];
-    //   console.log(list)
-    //   return list;
-    // })
-    // confirm that the name & team inserted is in playerData
-    // generate the image associated with the player name from images folder
-    // create a div inside the playerlist div
-      // set a condition to ensure that user cannot add more than 5 players to their list
-    // getPlayer([])
   }
-
 
   return (
     <>
@@ -58,9 +46,7 @@ const PlayerCard = ({player, getPlayer}) => {
           />
         </div>
         <button type="submit">Submit</button>
-        
-      </form>
-
+      </form> 
     </>
   )
 }

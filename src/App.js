@@ -5,7 +5,7 @@ import {useState} from 'react'
 
 const App = (props) => {
 
-  const [player, getPlayer] = useState([]);
+  const [player, getPlayer] = useState([{name: '', team: ''}]);
 
   return (
     <div>

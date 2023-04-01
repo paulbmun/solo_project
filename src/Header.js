@@ -4,7 +4,7 @@ const Header = (props) => {
   return (
     <header className="header">
       <img 
-        src="./images/logo-color.png" 
+        src="https://i.imgur.com/4aZClGc.png" 
         className="header--image"
       />
       <div className="dropdown">
